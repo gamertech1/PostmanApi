@@ -6,7 +6,16 @@ parameters:
     - true
     - false
 
+pool:
+  vmImage: ubuntu-latest  # Use a specific image version
+
 stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo "Building the project..."
+
 - stage: Test
   dependsOn: Build
   condition: eq(${{ parameters.runTest }}, true)  # Runs only if checkbox is checked
@@ -16,7 +25,7 @@ stages:
     - script: echo "Running tests..."
 
 - stage: Deploy
-  # Ensures Deploy runs even if Test is skipped/failed
+  dependsOn: []  # No dependency, so it always runs
   jobs:
   - job: DeployJob
     steps:
