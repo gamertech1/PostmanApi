@@ -1,0 +1,23 @@
+parameters:
+- name: runTest
+  type: boolean
+  default: false
+  values:
+    - true
+    - false
+
+stages:
+- stage: Test
+  dependsOn: Build
+  condition: eq(${{ parameters.runTest }}, true)  # Runs only if checkbox is checked
+  jobs:
+  - job: TestJob
+    steps:
+    - script: echo "Running tests..."
+
+- stage: Deploy
+  # Ensures Deploy runs even if Test is skipped/failed
+  jobs:
+  - job: DeployJob
+    steps:
+    - script: echo "Deploying..."
