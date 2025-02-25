@@ -25,7 +25,8 @@ stages:
     - script: echo "Running tests..."
 
 - stage: Deploy
-  dependsOn: []  # No dependency, so it always runs
+  dependsOn: Test
+  condition: eq(succeeded(),true)
   jobs:
   - job: DeployJob
     steps:
