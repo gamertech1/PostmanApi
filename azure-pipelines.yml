@@ -1,6 +1,7 @@
 parameters:
 - name: runTest
-  type: string
+  type: boolean
+  default: false
   values:
     - true
     - false
