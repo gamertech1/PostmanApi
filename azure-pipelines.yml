@@ -17,7 +17,6 @@ stages:
     - script: echo "Building the project..."
 
 - stage: Test
-  dependsOn: Build
   condition: eq(${{ parameters.runTest }}, true)  # Runs only if checkbox is checked
   jobs:
   - job: TestJob
@@ -25,7 +24,6 @@ stages:
     - script: echo "Running tests..."
 
 - stage: Deploy
-  dependsOn: Test
   condition: eq(succeeded(),true)
   jobs:
   - job: DeployJob
