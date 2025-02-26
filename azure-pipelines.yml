@@ -24,7 +24,7 @@ stages:
     - script: echo "Running tests..."
 
 - stage: Deploy
-  condition: eq(succeeded(),true)
+  condition: succeeded()
   jobs:
   - job: DeployJob
     steps:
